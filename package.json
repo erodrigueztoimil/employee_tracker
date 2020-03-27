@@ -1,0 +1,13 @@
+{
+  "name": "employee_tarcker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/erodrigueztoimil/employee_tracker.git",
+  "author": "Ernesto Rodriguez <erodrigueztoimil@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^7.1.0",
+    "mysql": "^2.18.1"
+  }
+}
