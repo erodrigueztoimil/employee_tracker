@@ -48,10 +48,10 @@ const connection = mysql.createConnection({
   port: 8889,
   user: "root",
   password: "root",
-  database: "employee_tracker"
+  database: "employee_tracker",
 });
 
-connection.connect(err => {
+connection.connect((err) => {
   if (err) throw err;
 
   getUserInput();
@@ -60,8 +60,8 @@ connection.connect(err => {
 function getUserInput() {
   inquirer
     .prompt({
-      name: "action",
       type: "list",
+      name: "action",
       message: "What would you like to do?",
       choices: [
         "View all employees",
@@ -70,17 +70,26 @@ function getUserInput() {
         "Add employee",
         "Remove employee",
         "Update employee role",
-        "Update employee manager"
-      ]
+        "Update employee manager",
+      ],
     })
-    .then(choice => {
+    .then((choice) => {
       switch (choice.action) {
         case "View all employees":
           getEmployees();
           break;
 
         case "View all employees by department":
-          console.log("option");
+          connection.query("SELECT name FROM department", (err, response) => {
+            if (err) throw err;
+            console.log(response);
+          });
+
+          // inquirer.prompt({
+          //   type: "list",
+          //   name: "action",
+          //   choices: respon,
+          // });
           break;
 
         case "View all employees by manager":
@@ -111,10 +120,18 @@ function getUserInput() {
 }
 
 function getEmployees() {
-  connection.query("SELECT * FROM employee", (err, response) => {
-    if (err) throw err;
-    console.table(response);
-  });
+  connection.query(
+    "SELECT employee.id, employee.first_name, employee.last_name, role.title, department.department, role.salary FROM employee INNER JOIN role ON employee.role_id=role.id INNER JOIN department ON role.department_id=department.id",
+    (err, response) => {
+      if (err) throw err;
+      console.table(response);
+    }
+  );
+}
 
-  getUserInput();
+function getDepartments() {
+  connection.query("SELECT name FROM department", (err, response) => {
+    if (err) throw err;
+    return response;
+  });
 }

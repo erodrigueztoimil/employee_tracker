@@ -1,10 +1,10 @@
 USE employee_tracker;
 
 -- add departments
-INSERT INTO department (name) VALUES ('sales');
-INSERT INTO department (name) VALUES ('engineering');
-INSERT INTO department (name) VALUES ('finance');
-INSERT INTO department (name) VALUES ('legal');
+INSERT INTO department (department) VALUES ('Sales');
+INSERT INTO department (department) VALUES ('Engineering');
+INSERT INTO department (department) VALUES ('Finance');
+INSERT INTO department (department) VALUES ('Legal');
 
 -- add roles
 INSERT INTO role (title, salary, department_id) VALUES ('Sales Lead', 10.5, 1);
